@@ -52,18 +52,19 @@ public class Signin extends HttpServlet {
                 User userEntity = (User) criteria.list().get(0);
 
                 if (userEntity.getVerification().equals("Verified")) {
-                    session.save(userEntity);
-                    session.beginTransaction().commit();
-                    response_DTO.setSuccess(true);
-                    response_DTO.setContent("Registration Complete");
-                } else {
                     user.setFirst_name(userEntity.getFirst_name());
                     user.setLast_name(userEntity.getFirst_name());
-                  request.getSession().setAttribute("user", response_DTO);
+                    user.setPassword(null);
+                    request.getSession().setAttribute("user", response_DTO);
+                    response_DTO.setSuccess(true);
+                    response_DTO.setContent("Sign In Success!");
+                } else {
+                    request.getSession().setAttribute("email", user.getEmail());
+                    response_DTO.setContent("unvrifid");
                 }
 
             } else {
-                response_DTO.setContent("Invalid details");
+                response_DTO.setContent("Invalid details! Please try again");
             }
 
             session.close();

@@ -1,7 +1,7 @@
-async   function Signin() {
-    const user_dto = {
-        email: document.getElementById("email").value,
-        password: document.getElementById("password").value,
+async  function VerifyAccount() {
+    
+     const user_dto = {
+        email: document.getElementById("verificationCode").value
     }
 
     console.log(user_dto);
@@ -16,15 +16,11 @@ async   function Signin() {
             window.location = "index.html";
         } else {
 
-            if (json.content = "Unverified") {
-                window.location = "verify-account.html";
-            }
-
             document.getElementById("message").innerHTML = json.content;
         }
 
     } else {
         console.log("Error");
     }
-
+    
 }

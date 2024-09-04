@@ -66,10 +66,16 @@ public class SignUp extends HttpServlet {
                 userEntity.setPassword(user.getPassword());
                 userEntity.setVerification(String.valueOf(code));
 
-                Thread t = new Thread();
-                Mail.sendMail("sdilusha34@gmail.com", "Smart Trade Verification", "<h1 style=\"color:red\">" + userEntity.getVerification() + "</h1>");
+                Thread t = new Thread() {
+                    @Override
+                    public void run() {
+                        Mail.sendMail("sdilusha34@gmail.com", "Smart Trade Verification", "<h1 style=\"color:red\">" + userEntity.getVerification() + "</h1>");
+                    }
+
+                };
                 t.start();
 
+                request.getSession().setAttribute("email", user.getEmail());
                 session.save(userEntity);
                 session.beginTransaction().commit();
                 response_DTO.setSuccess(true);
