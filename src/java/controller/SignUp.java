@@ -69,6 +69,9 @@ public class SignUp extends HttpServlet {
                 Mail.sendMail("sdilusha34@gmail.com", "Smart Trade Verification", "<h1 style=\"color:red\">"+userEntity.getVerification()+"</h1>");
                 
                 session.save(userEntity);
+                response_DTO.setSuccess(true);
+                response_DTO.setContent("Registration Complete");
+                
             }
             
             session.close();
