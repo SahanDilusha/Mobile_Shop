@@ -51,15 +51,17 @@ public class SignUp extends HttpServlet {
             response_DTO.setContent("Please enter valid password!");
         } else {
             Session session = HibernateUtil.getSessionFactory().openSession();
-            User userEntity = new User();
-            
-            Criteria criteria = session.createCriteria(User.class).add(Restrictions.eq("email",user.getEmail()));
-   
+
+            Criteria criteria = session.createCriteria(User.class).add(Restrictions.eq("email", user.getEmail()));
+
             if (!criteria.list().isEmpty()) {
                 response_DTO.setContent("User with this Email already exists");
-            }else{
-            
+            } else {
+                User userEntity = new User();
+                session.save(userEntity);
             }
+            
+            session.close();
             
         }
 
