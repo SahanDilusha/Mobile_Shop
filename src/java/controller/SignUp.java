@@ -14,7 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.HibernateUtil;
 import model.Validations;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 @WebServlet(name = "SignUp", urlPatterns = {"/SignUp"})
 public class SignUp extends HttpServlet {
@@ -50,6 +52,15 @@ public class SignUp extends HttpServlet {
         } else {
             Session session = HibernateUtil.getSessionFactory().openSession();
             User userEntity = new User();
+            
+            Criteria criteria = session.createCriteria(User.class).add(Restrictions.eq("email",user.getEmail()));
+   
+            if (!criteria.list().isEmpty()) {
+                response_DTO.setContent("User with this Email already exists");
+            }else{
+            
+            }
+            
         }
 
     }

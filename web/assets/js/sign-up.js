@@ -1,6 +1,5 @@
 async function SignUp() {
     
-   
     const user_dto = {
         firstName:document.getElementById("first_name").value,
         lastName:document.getElementById("last_name").value,
