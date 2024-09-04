@@ -58,6 +58,13 @@ public class SignUp extends HttpServlet {
                 response_DTO.setContent("User with this Email already exists");
             } else {
                 User userEntity = new User();
+                int code = (int)(Math.random()*1000000);
+                
+                userEntity.setFirst_name(user.getFirst_name());
+                userEntity.setLast_name(user.getLast_name());
+                userEntity.setPassword(user.getPassword());
+                userEntity.setVerification(String.valueOf(code));
+                
                 session.save(userEntity);
             }
             
