@@ -8,6 +8,6 @@ async function SignUp() {
         password:document.getElementById("password").value,
     }
     
-  const response = await fetch("SignUp",{method:"POST",body:JSON.stringify(user_dto),headers:{"Content-Type":"applictaion/json"}});
+  const response = await fetch("SignUp",{method:"POST",body:JSON.stringify(user_dto),headers:{"Content-Type":"application/json"}});
     
 }
