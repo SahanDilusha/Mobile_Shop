@@ -11,6 +11,8 @@ async function SignUp() {
     
     if (response.ok) {
         const json = await response.json;
+        console.log(json);
     } else {
+        console.log("Error");
     }
 }
