@@ -22,32 +22,33 @@ public class SignUp extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         System.out.println("done");
-        
-        Response_DTO  response_DTO  = new Response_DTO();
-        
+
+        Response_DTO response_DTO = new Response_DTO();
+
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 
         User_DTO user = gson.fromJson(request.getReader(), User_DTO.class);
-        
+
         System.out.println(user.getEmail());
         System.out.println(user.getFirst_name());
         System.out.println(user.getLast_name());
         System.out.println(user.getPassword());
-        
-        if (user.getEmail().isBlank()) {
+
+        if (user.getFirst_name().isBlank()) {
+            response_DTO.setContent("Please enter your first name");
+        } else if (user.getLast_name().isEmpty()) {
+            response_DTO.setContent("Please enter your last name");
+        } else if (user.getEmail().isBlank()) {
+            response_DTO.setContent("Please enter your email");
+        }else if (user.getEmail()) {
             
-        }else if (user.getFirst_name().isBlank()) {
+        }  else if (user.getPassword().isBlank()) {
+            response_DTO.setContent("Please enter your password");
+        }else if (user.getPassword()) {
             
-        }else if (user.getLast_name().isEmpty()) {
-            
-        }else if (user.getPassword().isBlank()) {
-            
-        }else{
+        }  else {
             Session session = HibernateUtil.getSessionFactory().openSession();
             User userEntity = new User();
-            
-            
-            
         }
 
     }
