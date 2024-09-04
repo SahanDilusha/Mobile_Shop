@@ -2,6 +2,7 @@ package controller;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import dto.Response_DTO;
 import dto.User_DTO;
 import entity.User;
 import java.io.IOException;
@@ -21,6 +22,8 @@ public class SignUp extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         System.out.println("done");
+        
+        Response_DTO  response_DTO  = new Response_DTO();
         
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 
