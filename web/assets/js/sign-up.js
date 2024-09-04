@@ -11,6 +11,13 @@ async function SignUp() {
    if (response.ok) {
        const json = await response.json;
        console.log(json);
+       
+        if (json.success){
+          window.location= "verify-account.html";
+        }else{
+           document.getElementById("message").innerHTML = json.content; 
+        }
+       
    } else {
        console.log("Error");
    }
