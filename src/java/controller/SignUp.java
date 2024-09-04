@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.HibernateUtil;
+import model.Validations;
 import org.hibernate.Session;
 
 @WebServlet(name = "SignUp", urlPatterns = {"/SignUp"})
@@ -35,18 +36,18 @@ public class SignUp extends HttpServlet {
         System.out.println(user.getPassword());
 
         if (user.getFirst_name().isBlank()) {
-            response_DTO.setContent("Please enter your first name");
+            response_DTO.setContent("Please enter your first name!");
         } else if (user.getLast_name().isEmpty()) {
-            response_DTO.setContent("Please enter your last name");
+            response_DTO.setContent("Please enter your last name!");
         } else if (user.getEmail().isBlank()) {
-            response_DTO.setContent("Please enter your email");
-        }else if (user.getEmail()) {
-            
-        }  else if (user.getPassword().isBlank()) {
-            response_DTO.setContent("Please enter your password");
-        }else if (user.getPassword()) {
-            
-        }  else {
+            response_DTO.setContent("Please enter your email!");
+        } else if (Validations.isEmailValid(user.getEmail())) {
+            response_DTO.setContent("Please enter valid email!");
+        } else if (user.getPassword().isBlank()) {
+            response_DTO.setContent("Please enter your password!");
+        } else if (Validations.isPasswordValid(user.getPassword())) {
+            response_DTO.setContent("Please enter valid password!");
+        } else {
             Session session = HibernateUtil.getSessionFactory().openSession();
             User userEntity = new User();
         }
