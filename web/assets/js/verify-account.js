@@ -6,7 +6,7 @@ async  function VerifyAccount() {
 
     console.log(user_dto);
 
-    const response = await fetch("Signin", {method: "POST", body: JSON.stringify(user_dto), headers: {"Content-Type": "application/json"}});
+    const response = await fetch("Verify_Account", {method: "POST", body: JSON.stringify(user_dto), headers: {"Content-Type": "application/json"}});
 
     if (response.ok) {
         const json = await response.json;
