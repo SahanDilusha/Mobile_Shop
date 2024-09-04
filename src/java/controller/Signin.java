@@ -57,6 +57,8 @@ public class Signin extends HttpServlet {
                     response_DTO.setSuccess(true);
                     response_DTO.setContent("Registration Complete");
                 } else {
+                    user.setFirst_name(userEntity.getFirst_name());
+                    user.setLast_name(userEntity.getFirst_name());
                   request.getSession().setAttribute("user", response_DTO);
                 }
 
