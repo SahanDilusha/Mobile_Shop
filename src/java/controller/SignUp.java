@@ -41,11 +41,11 @@ public class SignUp extends HttpServlet {
             response_DTO.setContent("Please enter your last name!");
         } else if (user.getEmail().isBlank()) {
             response_DTO.setContent("Please enter your email!");
-        } else if (Validations.isEmailValid(user.getEmail())) {
+        } else if (!Validations.isEmailValid(user.getEmail())) {
             response_DTO.setContent("Please enter valid email!");
         } else if (user.getPassword().isBlank()) {
             response_DTO.setContent("Please enter your password!");
-        } else if (Validations.isPasswordValid(user.getPassword())) {
+        } else if (!Validations.isPasswordValid(user.getPassword())) {
             response_DTO.setContent("Please enter valid password!");
         } else {
             Session session = HibernateUtil.getSessionFactory().openSession();
