@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.HibernateUtil;
+import model.Mail;
 import model.Validations;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -64,6 +65,8 @@ public class SignUp extends HttpServlet {
                 userEntity.setLast_name(user.getLast_name());
                 userEntity.setPassword(user.getPassword());
                 userEntity.setVerification(String.valueOf(code));
+                
+                Mail.sendMail("sdilusha34@gmail.com", "Smart Trade Verification", "<h1 style=\"color:red\">"+userEntity.getVerification()+"</h1>");
                 
                 session.save(userEntity);
             }
