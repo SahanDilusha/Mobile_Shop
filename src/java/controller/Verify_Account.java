@@ -51,6 +51,7 @@ public class Verify_Account extends HttpServlet {
                 request.removeAttribute("email");
                 response_DTO.setSuccess(true);
                 response_DTO.setContent("success");
+                request.getSession().setAttribute("user", user);
             } else {
                 response_DTO.setContent("Invalid verification code!");
             }
