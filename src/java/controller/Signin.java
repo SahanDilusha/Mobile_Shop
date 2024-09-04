@@ -33,7 +33,6 @@ public class Signin extends HttpServlet {
 
         User_DTO user = gson.fromJson(request.getReader(), User_DTO.class);
 
-
         if (user.getEmail().isBlank()) {
             response_DTO.setContent("Please enter your email!");
         } else if (!Validations.isEmailValid(user.getEmail())) {
@@ -45,28 +44,24 @@ public class Signin extends HttpServlet {
         } else {
             Session session = HibernateUtil.getSessionFactory().openSession();
 
-            Criteria criteria = session.createCriteria(User.class).add(Restrictions.eq("email", user.getEmail()));
+            Criteria criteria = session.createCriteria(User.class);
+            criteria.add(Restrictions.eq("email", user.getEmail()));
+            criteria.add(Restrictions.eq("password", user.getPassword()));
 
             if (!criteria.list().isEmpty()) {
-                response_DTO.setContent("User with this Email already exists");
+                User userEntity = (User) criteria.list().get(0);
+
+                if (userEntity.getVerification().equals("Verified")) {
+                    session.save(userEntity);
+                    session.beginTransaction().commit();
+                    response_DTO.setSuccess(true);
+                    response_DTO.setContent("Registration Complete");
+                } else {
+                  
+                }
+
             } else {
-                User userEntity = new User();
-                int code = (int) (Math.random() * 1000000);
-
-                userEntity.setFirst_name(user.getFirst_name());
-                userEntity.setLast_name(user.getLast_name());
-                userEntity.setPassword(user.getPassword());
-                userEntity.setVerification(String.valueOf(code));
-
-                Thread t = new Thread();
-                Mail.sendMail("sdilusha34@gmail.com", "Smart Trade Verification", "<h1 style=\"color:red\">" + userEntity.getVerification() + "</h1>");
-                t.start();
-
-                session.save(userEntity);
-                session.beginTransaction().commit();
-                response_DTO.setSuccess(true);
-                response_DTO.setContent("Registration Complete");
-
+                response_DTO.setContent("Invalid details");
             }
 
             session.close();

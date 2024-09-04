@@ -59,28 +59,29 @@ public class SignUp extends HttpServlet {
                 response_DTO.setContent("User with this Email already exists");
             } else {
                 User userEntity = new User();
-                int code = (int)(Math.random()*1000000);
-                
+                int code = (int) (Math.random() * 1000000);
+
                 userEntity.setFirst_name(user.getFirst_name());
                 userEntity.setLast_name(user.getLast_name());
                 userEntity.setPassword(user.getPassword());
                 userEntity.setVerification(String.valueOf(code));
-                
+
                 Thread t = new Thread();
-                 Mail.sendMail("sdilusha34@gmail.com", "Smart Trade Verification", "<h1 style=\"color:red\">"+userEntity.getVerification()+"</h1>");
+                Mail.sendMail("sdilusha34@gmail.com", "Smart Trade Verification", "<h1 style=\"color:red\">" + userEntity.getVerification() + "</h1>");
                 t.start();
-                
+
                 session.save(userEntity);
                 session.beginTransaction().commit();
                 response_DTO.setSuccess(true);
                 response_DTO.setContent("Registration Complete");
-                
+
             }
-            
+
             session.close();
-            
+
         }
-        
+
+        response.setContentType("application/json");
         response.getWriter().write(gson.toJson(response_DTO));
 
     }
