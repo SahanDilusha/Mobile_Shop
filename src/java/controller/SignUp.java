@@ -77,6 +77,8 @@ public class SignUp extends HttpServlet {
             session.close();
             
         }
+        
+        response.getWriter().write(gson.toJson(response_DTO));
 
     }
 
