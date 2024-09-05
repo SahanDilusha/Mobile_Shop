@@ -7,6 +7,10 @@ async  function loadFeatures() {
 
         if (json !== null) {
 
+            const categoryList = json.categoryList;
+            
+            
+
         } else {
 
         }
